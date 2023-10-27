@@ -1,0 +1,7 @@
+to LOCALLY SEE which git account is currently in use
+>git config --list
+
+to LOCALLY change git account
+>git config --local user.email "elisabmoutinho@gmail.com"
+(this changes the user.email field)
+
