@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#000000" />
+  <meta name="description" content="Web site created using create-react-app" />
+  <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+  <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+  <title>React App</title>
+
+  <script async src="https://securepubads.g.doubleclick.net/tag/js/gpt.js"></script>
+    <script>
+      window.googletag = window.googletag || {cmd: []};
+      var adSlot1, adSlot2;
+
+      googletag.cmd.push(function() {
+        // Define ad slot 1.
+        adSlot1 = googletag
+            .defineSlot('/6355419/Travel/Europe/France',[728, 90], 'banner-ad-1')
+            .addService(googletag.pubads());
+        // Define and configure ad slot 2.
+        adSlot2 = googletag
+            .defineSlot('/6355419/Travel/Europe/France',[728, 90], 'banner-ad-2')
+            .setTargeting('test', 'privacy')
+            .addService(googletag.pubads());
+        // Enable SRA and services.
+        googletag.pubads().enableSingleRequest();
+        googletag.enableServices();
+      });
+    </script>
+
+</head>
+
+<body>
+  <noscript>You need to enable JavaScript to run this app.</noscript>
+  <div id="root"></div>
+
+  <div id="banner-ad-1" style="width: 728px; height: 90px;"></div>
+  <br>
+  <div id="banner-ad-2" style="width: 728px; height: 90px;"></div>
+  <script>
+      googletag.cmd.push(function() {
+        // This call to display requests both ad slots with all
+        // configured targeting.
+        googletag.display(adSlot1);
+      });
+    </script>
+
+</body>
+
+</html>
