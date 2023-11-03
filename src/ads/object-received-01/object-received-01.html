@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8" />
+	<link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta name="theme-color" content="#000000" />
+	<meta name="description" content="Web site created using create-react-app" />
+	<link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+	<link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+	<title>React App</title>
+
+	<!-- PubAds Basic -->
+	<!-- load GPT library -->
+	<script async src="https://securepubads.g.doubleclick.net/tag/js/gpt.js"></script>
+	<script>
+
+		//ensure GPT object is available
+		window.googletag = window.googletag || { cmd: [] };
+
+		var mockAds = [
+			{
+				networkCode: '/6355419/Travel/Europe/France/Paris',
+				width: 300,
+				height: 250,
+				adUnitCode: 'banner-ad-1'
+			},
+			{
+				networkCode: '/6355419/Travel/Asia',
+				width: 728,
+				height: 90,
+				adUnitCode: 'banner-ad-2'
+			},
+			{
+				networkCode: '/6355419/Travel/Europe/France',
+				width: 728,
+				height: 90,
+				adUnitCode: 'banner-ad-3'
+			}
+		];
+
+		//queues a command which constructs an ad slot & enables GPT
+		googletag.cmd.push(function () {
+
+			// mockAds.forEach(ad => {
+			// 	return googletag.defineSlot(ad.networkCode, ad.sizes, ad.adUnitCode)
+			// 		.addService(googletag.pubads());
+			// });
+
+			for (const ad of mockAds) {
+				googletag
+					.defineSlot(
+						ad.networkCode, [ad.width, ad.height], ad.adUnitCode)
+					.addService(googletag.pubads());
+			}
+
+			// // Define ad slot 1.
+			// googletag
+			// 	.defineSlot(
+			// 		'/6355419/Travel/Europe/France/Paris', [300, 250], 'banner-ad')
+			// 	.addService(googletag.pubads());
+
+			// Enable services - initialize GPT
+			googletag.enableServices();
+		});
+	</script>
+
+</head>
+
+<body>
+	<noscript>You need to enable JavaScript to run this app.</noscript>
+	<div id="root"></div>
+
+
+	<div id="ad-container">
+
+		<script>
+			const adContainer = document.getElementById('ad-container');
+
+			for (const ad of mockAds) {
+				const div = document.createElement('div');
+				const br = document.createElement('br');
+				div.id = ad.adUnitCode;
+				div.style.width = ad.width + 'px';
+				div.style.height = ad.height + 'px';
+				adContainer.append(div, br);
+				// adContainer.appendChild(br);
+			}
+		</script>
+
+		<!-- <div id="banner-ad-1" style="width: 300px; height: 250px;"></div>
+		<div id="banner-ad-2" style="width: 728px; height: 90px;"></div>
+		<div id="banner-ad-3" style="width: 728px; height: 90px;"></div> -->
+
+		<script>
+			googletag.cmd.push(function () {
+
+				for (const ad of mockAds) {
+					googletag.display(ad.adUnitCode);
+				};
+
+			});
+		</script>
+	</div>
+
+</body>
+
+</html>

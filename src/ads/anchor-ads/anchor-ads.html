@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8" />
+	<link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta name="theme-color" content="#000000" />
+	<meta name="description" content="Web site created using create-react-app" />
+	<link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+
+	<link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+
+	<title>React App</title>
+
+	<!-- PubAds Anchor Ads -->
+	<script async src="https://securepubads.g.doubleclick.net/tag/js/gpt.js"></script>
+	<script>
+		window.googletag = window.googletag || { cmd: [] };
+		googletag.cmd.push(function () {
+			googletag
+				.defineSlot(
+					'/6355419/Travel/Europe/France/Paris', [300, 250], 'banner-ad')
+				.addService(googletag.pubads());
+			googletag.enableServices();
+		});
+	</script>
+</head>
+
+<body>
+	<noscript>You need to enable JavaScript to run this app.</noscript>
+	<div id="root"></div>
+	<div id="banner-ad" style="width: 300px; height: 250px;">
+		<script>
+			googletag.cmd.push(function () {
+				googletag.display('banner-ad');
+			});
+		</script>
+	</div>
+
+</body>
+
+</html>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8" />
+	<link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta name="theme-color" content="#000000" />
+	<meta name="description" content="Web site created using create-react-app" />
+	<link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+	<link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+	<title>React App</title>
+
+	<script async src="https://securepubads.g.doubleclick.net/tag/js/gpt.js"></script>
+	<script>
+		window.googletag = window.googletag || { cmd: [] };
+
+		googletag.cmd.push(function () {
+			// Define a fixed size ad slot, customized with key-value targeting.
+			googletag.defineSlot('/6355419/Travel/Asia', [728, 90], 'banner-ad')
+				.addService(googletag.pubads())
+				.setTargeting('color', 'red')
+				.setTargeting('position', 'atf');
+
+			// Define an anchor ad slot that sticks to the bottom of the viewport.
+			const anchorSlot = googletag.defineOutOfPageSlot(
+				'/6355419/Travel', googletag.enums.OutOfPageFormat.BOTTOM_ANCHOR);
+
+			// The slot will be null if the page or device does not support anchors.
+			if (anchorSlot) {
+				anchorSlot
+					.setTargeting('test', 'anchor')
+					.addService(googletag.pubads());
+
+				document.getElementById('status').textContent =
+					'Anchor ad is initialized. Scroll page to activate.';
+			}
+
+			// Define a fluid ad slot that adjusts its height to fit the creative
+			// content being displayed.
+			googletag
+				.defineSlot('/6355419/Travel', ['fluid'], 'native-ad')
+				.addService(googletag.pubads());
+
+			// Configure page-level targeting.
+			googletag.pubads().setTargeting('interests', 'basketball');
+
+			// Enable SRA and services.
+			googletag.pubads().enableSingleRequest();
+			googletag.enableServices();
+		});
+	</script>
+	<style>
+		.centered {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			width: 100%;
+		}
+
+		.native-slot {
+			width: 33%;
+		}
+
+		.page-content {
+			height: 900vh;
+		}
+
+		.spacer {
+			height: 450vh;
+		}
+	</style>
+
+</head>
+
+<body>
+	<noscript>You need to enable JavaScript to run this app.</noscript>
+	<div id="root"></div>
+
+	<div class="page-content centered">
+		<div id="banner-ad" style="width: 728px; height: 90px;"></div>
+		<!--
+        If the following status is displayed when the page is rendered, try
+        loading the page in a new window or on a different device.
+      -->
+		<h1 id="status">Anchor ads are not supported on this page.</h1>
+		<!--
+        Spacer used for example purposes only. This positions the native ad
+        container below the fold to encourage scrolling.
+      -->
+		<div class="spacer"></div>
+		<div id="native-ad" class="native-slot"></div>
+	</div>
+	<script>
+		googletag.cmd.push(function () {
+			// Ensure the first call to display comes after static ad slot
+			// divs are defined.
+			googletag.display('banner-ad');
+		});
+	</script>
+
+</body>
+
+</html>

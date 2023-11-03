@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8" />
+	<link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta name="theme-color" content="#000000" />
+	<meta name="description" content="Web site created using create-react-app" />
+	<link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+	<link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+	<title>React App</title>
+
+	<!-- PubAds Basic -->
+	<!-- load GPT library -->
+	<script async src="https://securepubads.g.doubleclick.net/tag/js/gpt.js"></script>
+	<script>
+
+		//ensure GPT object is available
+		window.googletag = window.googletag || { cmd: [] };
+
+		var mockAds = [
+			{
+				networkCode: '/6355419/Travel/Europe/France/Paris',
+				size: [300, 250],
+				adUnitCode: 'banner-ad-1'
+			},
+			{
+				networkCode: '/6355419/Travel/Europe/France',
+				size: [728, 90],
+				adUnitCode: 'banner-ad-2'
+			},
+			{
+				networkCode: '/6355419/Travel/Europe/France',
+				size: [728, 90],
+				targeting: [
+					['test', 'privacy'],
+				],
+				adUnitCode: 'banner-ad-3'
+			},
+			{
+				networkCode: '/6355419/Travel/Europe',
+				size: [728, 90],
+				adUnitCode: 'banner-ad-4'
+			},
+			{
+				networkCode: '/6355419/Travel/Asia',
+				size: [728, 90],
+				targeting: [
+					['color', 'red'],
+					['position', 'atf'],
+				],
+				// targeting: [
+				// 	{'color': 'red'},
+				// 	{'position': 'atf'},
+				// ],
+				adUnitCode: 'banner-ad-5'
+			},
+		];
+
+		//queues a command which constructs an ad slot & enables GPT
+		googletag.cmd.push(function () {
+
+			for (const ad of mockAds) {
+
+				const singleAdSlot =
+					googletag
+						.defineSlot(ad.networkCode, [ad.size[0], ad.size[1]], ad.adUnitCode)
+						.addService(googletag.pubads());
+
+				if (ad.targeting) {
+					for (const target of ad.targeting) {
+						singleAdSlot.setTargeting(target[0], target[1]);
+					}
+				}
+			}
+
+			// Enable services - initialize GPT
+			googletag.pubads().enableSingleRequest();
+			googletag.enableServices();
+		});
+	</script>
+
+</head>
+
+<body>
+	<noscript>You need to enable JavaScript to run this app.</noscript>
+	<div id="root"></div>
+
+	<div id="ad-container">
+
+		<script>
+			const adContainer = document.getElementById('ad-container');
+
+			for (const ad of mockAds) {
+				console.log('ad ', ad);
+				const div = document.createElement('div');
+				const br = document.createElement('br');
+				const adName = document.createElement('p');
+				adName.textContent = ad.adUnitCode;
+				div.id = ad.adUnitCode;
+				div.style.width = ad.size[0] + 'px';
+				div.style.height = ad.size[1] + 'px';
+				adContainer.append(adName, div, br);
+				// adContainer.appendChild(br);
+			}
+		</script>
+
+		<!-- <div id="banner-ad-1" style="width: 300px; height: 250px;"></div>
+		<div id="banner-ad-2" style="width: 728px; height: 90px;"></div>
+		<div id="banner-ad-3" style="width: 728px; height: 90px;"></div> -->
+
+		<script>
+			googletag.cmd.push(function () {
+
+				for (const ad of mockAds) {
+					console.log('ad body ', ad);
+					googletag.display(ad.adUnitCode);
+				};
+
+			});
+		</script>
+	</div>
+
+</body>
+
+</html>

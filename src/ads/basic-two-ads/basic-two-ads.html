@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8" />
+	<link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta name="theme-color" content="#000000" />
+	<meta name="description" content="Web site created using create-react-app" />
+	<link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+	<link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+	<title>My Testing Anything React App</title>
+
+	<!-- PubAds Basic Two Ads WITH eventListeners -->
+	<!--load GPT library -->
+	<script async src="https://securepubads.g.doubleclick.net/tag/js/gpt.js"></script>
+	<script>
+
+		// Define the printEventMessage function to log messages to the console.
+		function printEventMessage(message, slotId, details = {}) {
+			if (typeof details === undefined || (typeof details === 'object' && Object.keys(details).length === 0)) {
+				console.log(message + ' Slot ID: ' + slotId);
+				return;
+			}
+			console.log(message + ' Slot ID: ' + slotId + logEventDetails(details));
+		}
+
+		function logEventDetails(details) {
+			for (var key in details) {
+				if (details.hasOwnProperty(key)) {
+					console.log(key + ': ' + details[key]);
+				}
+			}
+		}
+
+		window.googletag = window.googletag || { cmd: [] };
+		var adSlot1, adSlot2;
+
+		googletag.cmd.push(function () {
+
+			// Define ad slot 1.
+			adSlot1 = googletag
+				.defineSlot('/6355419/Travel/Europe/France', [728, 90], 'banner-ad-1')
+				.addService(googletag.pubads());
+			// Define and configure ad slot 2.
+			adSlot2 = googletag
+				.defineSlot('/6355419/Travel/Europe/France', [728, 90], 'banner-ad-2')
+				.setTargeting('test', 'privacy')
+				.addService(googletag.pubads());
+
+			adSlot3 = googletag.defineSlot('/6355419/Travel/Asia', [728, 90], 'banner-ad-3')
+				.addService(googletag.pubads())
+				.setTargeting('color', 'red')
+				.setTargeting('position', 'atf');
+
+			// Enable SRA and services (Single Request Architecture).
+			googletag.pubads().enableSingleRequest();
+			googletag.enableServices();
+
+			//EVENT LISTENERS
+			// This listener will be called when an impression is considered viewable.
+			googletag.pubads().addEventListener('impressionViewable', function (event) {
+				var slotId = event.slot.getSlotElementId();
+				printEventMessage('Impression has become viewable.', slotId);
+			});
+
+			// This listener will be called when a slots creative iframe load event fires.
+			googletag.pubads().addEventListener('slotOnload', function (event) {
+				var slotId = event.slot.getSlotElementId();
+				printEventMessage('Creative iframe load event has fired.', slotId);
+			});
+
+			// This listener will be called when a slot has finished rendering.
+			googletag.pubads().addEventListener('slotRenderEnded', function (event) {
+				var slotId = event.slot.getSlotElementId();
+
+				// Record details of the rendered ad.
+				var details = {
+					'Advertiser ID': event.advertiserId,
+					'Campaign ID': event.campaignId,
+					'Company IDs': event.companyIds,
+					'Creative ID': event.creativeId,
+					'Creative Template ID': event.creativeId,
+					'Is backfill?': event.isBackfill,
+					'Is empty?': event.isEmpty,
+					'Label IDs': event.labelIds,
+					'Line Item ID': event.lineItemId,
+					'Size': event.size.join('x'),
+					'Slot content changed?': event.slotContentChanged,
+					'Source Agnostic Creative ID': event.sourceAgnosticCreativeId,
+					'Source Agnostic Line Item ID': event.sourceAgnosticLineItemId,
+					'Yield Group IDs': event.yieldGroupIds
+				}
+
+				printEventMessage('Slot has finished rendering.', slotId, details);
+			});
+
+			//🚨this one doesn't work
+			// This listener will be called when the specified service actually
+			// sets an ad request for a slot. Each slot will fire this event, even
+			// though they may be batched together in a single request if single
+			// request architecture (SRA) is enabled.
+			googletag.pubads().addEventListener('slotRequested', function (event) {
+				var slotId = event.slot.getSlotElementId();
+				requestedTimestamp[slotId] = Date.now();
+				printEventMessage('Slot has been requested.', slotId);
+			});
+
+			// This listener will be called when an ad response has been received for
+			// a slot.
+			googletag.pubads().addEventListener('slotResponseReceived', function (event) {
+				var slotId = event.slot.getSlotElementId();
+				printEventMessage('Ad response has been received.', slotId);
+			});
+
+			// This listener will be called whenever the on-screen percentage of an ad slot's
+			// area changes.
+			googletag.pubads().addEventListener('slotVisibilityChanged', function (event) {
+				var slotId = event.slot.getSlotElementId();
+
+				// Record details of the event.
+				var details = { 'Visible area': event.inViewPercentage + '%' };
+
+				printEventMessage('Visibility has changed.', slotId, details);
+			});
+
+
+		});
+	</script>
+
+</head>
+
+<body>
+	<noscript>You need to enable JavaScript to run this app.</noscript>
+	<div id="root"></div>
+	<br>
+	<p>from index.html</p>
+
+	<div id="banner-ad-1" style="width: 728px; height: 90px;"></div>
+	<br>
+	<div id="banner-ad-2" style="width: 728px; height: 90px;"></div>
+	<br>
+	<div id="banner-ad-3" style="width: 728px; height: 90px;"></div>
+	<script>
+		googletag.cmd.push(function () {
+			// This call to display requests both ad slots with all
+			// configured targeting.
+			googletag.display(adSlot1);
+			googletag.display(adSlot2);
+			googletag.display(adSlot3);
+		});
+	</script>
+
+</body>
+
+</html>
