@@ -21,31 +21,6 @@ const headers = { "Content-Type": "application/json" };
 const baseUrl = "http://127.0.0.1:1337";
 
 const App = () => {
-<<<<<<< Updated upstream
-	// [ {}, {}, {} ]
-	//import custom hook & pass the array of ads
-	useGptSlot(mockAds);
-
-	return (
-		<div>
-			<h3>Google Publisher Tags</h3>
-			<h4>PubAds</h4>
-			<br />
-			<br />
-			{/* and render each add in a div */}
-			{mockAds.map((ad) => {
-				return (
-					<div
-						id={ad.adUnitCode}
-						style={{
-							width: ad.size[0],
-							height: ad.size[1],
-							marginBottom: 12,
-						}}
-					></div>
-				);
-			})}
-=======
 	const [restaurants, setRestaurants] = useState([]);
 	const [products, setProducts] = useState([]);
 
@@ -152,7 +127,6 @@ const App = () => {
 					height="600"
 				/>
 			</div>
->>>>>>> Stashed changes
 		</div>
 	);
 };
