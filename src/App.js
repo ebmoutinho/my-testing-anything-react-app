@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
-import useGptSlot from "./hooks/useGptSlot/useGptSlot";
-import { mockAds } from "./mockAds/mockAds";
+// import useGptSlot from "./hooks/useGptSlot/useGptSlot";
+// import { mockAds } from "./mockAds/mockAds";
 
 // // Parses the JSON returned by a network request
 // const parseJSON = (resp) => (resp.json ? resp.json() : resp);
@@ -18,7 +18,7 @@ import { mockAds } from "./mockAds/mockAds";
 // };
 
 const headers = { "Content-Type": "application/json" };
-const baseUrl = "http://127.0.0.1:1337";
+// const baseUrl = "http://127.0.0.1:1337";
 
 const App = () => {
 	const [restaurants, setRestaurants] = useState([]);
@@ -82,19 +82,23 @@ const App = () => {
 			<div>
 				<h4>Content fetched from Strapi API</h4>
 				<p>Restaurants fetched:</p>
-				<ul>
+				<div id="restaurants">
 					{restaurants.map(({ id, attributes }) => (
 						<li key={id}>{attributes.restaurantName}</li>
 					))}
-				</ul>
+				</div>
 				<p>Products fetched:</p>
-				<ul>
+				<div id="products">
 					{products.map(({ id, attributes }) => {
 						const baseUrl = "http://127.0.0.1:1337";
-						const imageUrl = attributes.productImage[0].url;
+						// const imageUrl = attributes.productImage[0].url;
 						console.log(
-							"attributes.productImage ",
-							attributes.productImage[0].url
+							"attributes.productImage[0] ",
+							attributes.productImage.data[0].attributes.url
+						);
+						console.log(
+							"attributes.productImage[0] ",
+							attributes.productImage.data[1].attributes.url
 						);
 						// /uploads/mng_Product02_08b4159a3d.png
 						//http://127.0.0.1:1337/uploads/mng_Product02_08b4159a3d.png
@@ -102,17 +106,31 @@ const App = () => {
 							<>
 								<li key={id}>{attributes.productName}</li>
 								<li key={id}>{attributes.productDescription}</li>
-								<img
-									href={
-										"http://127.0.0.1:1337/uploads/large_mng_Product02_08b4159a3d.png"
-									}
-									alt="some alt text"
+
+								{attributes.productImage.data.map((img) => {
+									const individualImageUrl = img.attributes.url;
+									return (
+										<img
+											src={`${baseUrl}${individualImageUrl}`}
+											alt={individualImageUrl}
+										/>
+									);
+								})}
+								{/* <img
+									src={`${baseUrl}/uploads/mng_Product02_08b4159a3d.png`}
+									alt="mng_Product02"
 								/>
+
+								<img
+									src={`${baseUrl}/uploads/mng_product_4800835526.png`}
+									alt="mng_product"
+								/> */}
 							</>
 						);
 					})}
-				</ul>
+				</div>
 				<br />
+				{/* http://127.0.0.1:1337/media/cc0-images/grapefruit-slice-332-332.jpg */}
 				<img
 					src="http://127.0.0.1:1337/media/cc0-images/grapefruit-slice-332-332.jpg"
 					alt="Grapefruit slice atop a pile of other slices"
@@ -121,7 +139,7 @@ const App = () => {
 				/>
 				<br />
 				<img
-					src="https://placedog.net/499"
+					src="https://placedog.net/499/"
 					alt="https://placedog.net/500"
 					width="500"
 					height="600"
