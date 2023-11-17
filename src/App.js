@@ -1,21 +1,9 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
-// import useGptSlot from "./hooks/useGptSlot/useGptSlot";
-// import { mockAds } from "./mockAds/mockAds";
-
-// // Parses the JSON returned by a network request
-// const parseJSON = (resp) => (resp.json ? resp.json() : resp);
-
-// // Checks if a network request came back fine, and throws an error if not
-// const checkStatus = (resp) => {
-// 	if (resp.status >= 200 && resp.status < 300) {
-// 		return resp;
-// 	}
-
-// 	return parseJSON(resp).then((resp) => {
-// 		throw resp;
-// 	});
-// };
+import ProductCard from "./components/product-card/ProductCard";
+import RestaurantCard from "./components/restaurant-card/RestaurantCard";
+import useGptSlot from "./hooks/useGptSlot/useGptSlot";
+import { mockAds } from "./mockAds/mockAds";
 
 const headers = { "Content-Type": "application/json" };
 // const baseUrl = "http://127.0.0.1:1337";
@@ -23,6 +11,7 @@ const headers = { "Content-Type": "application/json" };
 const App = () => {
 	const [restaurants, setRestaurants] = useState([]);
 	const [products, setProducts] = useState([]);
+	useGptSlot(mockAds);
 
 	// useEffect(() => {
 	// 	fetch("http://127.0.0.1:1337/api/restaurants", { headers, method: "GET" })
@@ -52,15 +41,15 @@ const App = () => {
 
 		const products = await response.json();
 		setProducts(products.data);
-		console.log("products ", products.data);
-		console.log(
-			"productImage",
-			products.data[0].attributes.productImage.data[0].attributes
-		);
-		console.log(
-			"productImage url",
-			products.data[0].attributes.productImage.data[0].attributes.url
-		);
+		// console.log("products ", products.data);
+		// console.log(
+		// 	"productImage",
+		// 	products.data[0].attributes.productImage.data[0].attributes
+		// );
+		// console.log(
+		// 	"productImage url",
+		// 	products.data[0].attributes.productImage.data[0].attributes.url
+		// );
 	};
 
 	useEffect(() => {
@@ -68,25 +57,39 @@ const App = () => {
 		fetchProducts();
 	}, []);
 
-	// if (error) {
-	// 	console.log(error);
-	// 	// Print errors if any
-	// 	return <div>An error occurred: {error.message}</div>;
-	// }
-
 	return (
 		<div>
 			<p>Olá</p>
 			<p>Olá</p>
 			<p>Olá</p>
 			<div>
+				<p>Google Ads</p>
+				{mockAds.map((ad) => {
+					return (
+						<div
+							key={ad.adUnitCode}
+							id={ad.adUnitCode}
+							style={{
+								width: ad.size[0],
+								height: ad.size[1],
+								marginBottom: 12,
+							}}
+						></div>
+					);
+				})}
+			</div>
+			<ProductCard data={restaurants} />
+			<RestaurantCard data={restaurants} />
+			<div>
 				<h4>Content fetched from Strapi API</h4>
+
 				<p>Restaurants fetched:</p>
 				<div id="restaurants">
 					{restaurants.map(({ id, attributes }) => (
 						<li key={id}>{attributes.restaurantName}</li>
 					))}
 				</div>
+
 				<p>Products fetched:</p>
 				<div id="products">
 					{products.map(({ id, attributes }) => {
@@ -130,7 +133,6 @@ const App = () => {
 					})}
 				</div>
 				<br />
-				{/* http://127.0.0.1:1337/media/cc0-images/grapefruit-slice-332-332.jpg */}
 				<img
 					src="http://127.0.0.1:1337/media/cc0-images/grapefruit-slice-332-332.jpg"
 					alt="Grapefruit slice atop a pile of other slices"
