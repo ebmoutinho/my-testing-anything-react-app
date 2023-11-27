@@ -1,8 +1,8 @@
 import React from "react";
 
-import { WrapperDiv } from "./ProductCard.styles";
+import { WrapperDiv } from "./StrapiProductCard.styles";
 
-const ProductCard = ({ data }) => {
+const StrapiProductCard = ({ data }) => {
 	console.log("props ", data);
 
 	if (!data || data.length === 0) {
@@ -19,7 +19,7 @@ const ProductCard = ({ data }) => {
 	});
 };
 
-export default ProductCard;
+export default StrapiProductCard;
 
 // const ProductCard = (props) => {
 //    console.log('props ', props);

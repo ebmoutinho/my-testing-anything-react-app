@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import ProductCard from "../../components/product-card/ProductCard";
-import RestaurantCard from "../../components/restaurant-card/RestaurantCard";
+import RestaurantCard from "./components/restaurant-card/RestaurantCard";
+import StrapiProductCard from "./components/strapi-product-card/StrapiProductCard";
 
 const headers = { "Content-Type": "application/json" };
 // const baseUrl = "http://127.0.0.1:1337";
@@ -56,7 +56,7 @@ const Strapi = () => {
 		<div>
 			Strapi
 			<div>
-				<ProductCard data={restaurants} />
+				<StrapiProductCard data={restaurants} />
 				<RestaurantCard data={restaurants} />
 				<div>
 					<h4>Content fetched from Strapi API</h4>

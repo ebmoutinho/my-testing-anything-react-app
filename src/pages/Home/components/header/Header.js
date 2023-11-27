@@ -1,13 +1,13 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import { StyledNav } from "./Header.styles";
+import { StyledNav, StyledLink } from "./Header.styles";
 
 const Header = ({ ...remainingProps }) => {
 	return (
 		<StyledNav {...remainingProps}>
-			<Link to="/">Home</Link>
-			<Link to="/googleads">GoogleAds</Link>
-			<Link to="/strapi">Strapi content</Link>
+			<StyledLink to="/">Home</StyledLink>
+			<StyledLink to="/googleads">GoogleAds</StyledLink>
+			<StyledLink to="/googleadingrid">Google Ad in grid</StyledLink>
+			<StyledLink to="/strapi">Strapi content</StyledLink>
 		</StyledNav>
 	);
 };
